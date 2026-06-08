@@ -2,7 +2,7 @@ import torch.nn as nn
 from torch.nn import functional as F
 
 class ChannelAttention(nn.Module):
-    def __init__(self, channels, reduction=8):
+    def __init__(self, channels, reduction=2):
         super(ChannelAttention, self).__init__()
 
         # 全局平均池化
@@ -34,11 +34,11 @@ class ChannelAttention(nn.Module):
 class SimpleCNN(nn.Module):
     def __init__(self):
         super(SimpleCNN, self).__init__()
-        self.conv1 = nn.Conv2d(in_channels=16, out_channels=64, kernel_size=3, stride=1, padding=1)
-
+        
         # # 加入通道注意力
-        # self.ca = ChannelAttention(channels=64)
-        # self.ca2 = ChannelAttention(channels=64)
+        self.ca = ChannelAttention(channels=16)
+
+        self.conv1 = nn.Conv2d(in_channels=16, out_channels=64, kernel_size=3, stride=1, padding=1)
 
         self.conv2 = nn.Conv2d(in_channels=64, out_channels=64, kernel_size=3, stride=1, padding=1)
 
@@ -50,18 +50,16 @@ class SimpleCNN(nn.Module):
     
     def forward(self, x):
 
-        x = F.relu(self.conv1(x))
+        # # 通道注意力
+        x = self.ca(x)
 
-        # 通道注意力
-        # x = self.ca(x)
+        x = F.relu(self.conv1(x))
 
         x = F.relu(self.conv2(x))
 
         x = F.relu(self.conv3(x))
 
         x = F.relu(self.conv4(x))
-
-        # x = self.ca2(x)
 
         x = self.conv5(x)
 
@@ -70,11 +68,10 @@ class SimpleCNN(nn.Module):
 class WatermarkCNN(nn.Module):
     def __init__(self):
         super(WatermarkCNN, self).__init__()
-        self.conv1 = nn.Conv2d(in_channels=16, out_channels=64, kernel_size=3, stride=1, padding=1)
-
         # # 加入通道注意力
-        # self.ca = ChannelAttention(channels=64)
-        # self.ca2 = ChannelAttention(channels=64)
+        self.ca = ChannelAttention(channels=16)
+
+        self.conv1 = nn.Conv2d(in_channels=16, out_channels=64, kernel_size=3, stride=1, padding=1)
 
         self.conv2 = nn.Conv2d(in_channels=64, out_channels=64, kernel_size=3, stride=1, padding=1)
 
@@ -86,18 +83,16 @@ class WatermarkCNN(nn.Module):
     
     def forward(self, x):
 
+        # # 通道注意力
+        x = self.ca(x)
+
         x = F.relu(self.conv1(x))
 
-        # # 通道注意力
-        # x = self.ca(x)
-        
         x = F.relu(self.conv2(x))
 
         x = F.relu(self.conv3(x))
 
         x = F.relu(self.conv4(x))
-
-        # x = self.ca2(x)
 
         x = self.conv5(x)
 

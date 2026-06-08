@@ -12,6 +12,7 @@
 import torch
 from scene import Scene
 import os
+os.environ['CUDA_VISIBLE_DEVICES'] = '5'
 from tqdm import tqdm
 from os import makedirs
 from gaussian_renderer import render
@@ -28,11 +29,11 @@ import time
 
 def render_set(model_path, name, iteration, views, gaussians, pipeline, background):
     imagenet = SimpleCNN().cuda()
-    imagenet.load_state_dict(torch.load('/userhome/water/3DGS_single/output/stega_bicycle_0918/chkpnt50000_net.pth'))
+    imagenet.load_state_dict(torch.load('/home/qhuang/GS-Hider/output/kitchen_room/chkpnt50000_net.pth'))
     imagenet.eval()
 
     waternet = WatermarkCNN().cuda()
-    waternet.load_state_dict(torch.load('/userhome/water/3DGS_single/output/stega_bicycle_0918/chkpnt50000_waternet.pth'))
+    waternet.load_state_dict(torch.load('/home/qhuang/GS-Hider/output/kitchen_room/chkpnt50000_waternet.pth'))
     waternet.eval()   
 
     render_path = os.path.join(model_path, name, "ours_{}".format(iteration), "renders")

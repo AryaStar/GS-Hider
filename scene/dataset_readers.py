@@ -100,7 +100,7 @@ def readColmapCameras(cam_extrinsics, cam_intrinsics, images_folder):
         image = Image.open(image_path)
 
         scene_name = os.path.basename(os.path.dirname(images_folder))
-        watermark_path = os.path.join("/userhome/StegaGS/data/water", scene_name, f"{idx:05d}.png")
+        watermark_path = os.path.join("/home/qhuang/GS-Hider/data/water", scene_name, f"{idx:05d}.png")
 
         watermark = Image.open(watermark_path)
 

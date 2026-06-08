@@ -10,7 +10,7 @@
 #
 
 import os
-os.environ['CUDA_VISIBLE_DEVICES'] = '3'
+os.environ['CUDA_VISIBLE_DEVICES'] = '7'
 import time
 import torch
 from random import randint

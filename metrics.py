@@ -11,6 +11,7 @@
 
 from pathlib import Path
 import os
+os.environ['CUDA_VISIBLE_DEVICES'] = '6'
 from PIL import Image
 import torch
 import torchvision.transforms.functional as tf
@@ -63,7 +64,6 @@ def evaluate(model_paths):
                 # if method == "ours_50000":
                 #     continue
                 print("Method:", method)
-                print("zxy")
 
                 full_dict[scene_dir][method] = {}
                 per_view_dict[scene_dir][method] = {}
@@ -145,8 +145,8 @@ def evaluate(model_paths):
         #     print("Unable to compute metrics for model", scene_dir)
 
 if __name__ == "__main__":
-    device = torch.device("cuda:0")
-    torch.cuda.set_device(device)
+    # device = torch.device("cuda:0")
+    # torch.cuda.set_device(device)
 
     # Set up command line argument parser
     parser = ArgumentParser(description="Training script parameters")

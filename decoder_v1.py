@@ -37,7 +37,7 @@ class SimpleCNN(nn.Module):
         self.conv1 = nn.Conv2d(in_channels=16, out_channels=64, kernel_size=3, stride=1, padding=1)
 
         # # 加入通道注意力
-        # self.ca = ChannelAttention(channels=64)
+        self.ca = ChannelAttention(channels=64)
         # self.ca2 = ChannelAttention(channels=64)
 
         self.conv2 = nn.Conv2d(in_channels=64, out_channels=64, kernel_size=3, stride=1, padding=1)
@@ -53,7 +53,7 @@ class SimpleCNN(nn.Module):
         x = F.relu(self.conv1(x))
 
         # 通道注意力
-        # x = self.ca(x)
+        x = self.ca(x)
 
         x = F.relu(self.conv2(x))
 
@@ -73,7 +73,7 @@ class WatermarkCNN(nn.Module):
         self.conv1 = nn.Conv2d(in_channels=16, out_channels=64, kernel_size=3, stride=1, padding=1)
 
         # # 加入通道注意力
-        # self.ca = ChannelAttention(channels=64)
+        self.ca = ChannelAttention(channels=64)
         # self.ca2 = ChannelAttention(channels=64)
 
         self.conv2 = nn.Conv2d(in_channels=64, out_channels=64, kernel_size=3, stride=1, padding=1)
@@ -89,7 +89,7 @@ class WatermarkCNN(nn.Module):
         x = F.relu(self.conv1(x))
 
         # # 通道注意力
-        # x = self.ca(x)
+        x = self.ca(x)
         
         x = F.relu(self.conv2(x))
 
